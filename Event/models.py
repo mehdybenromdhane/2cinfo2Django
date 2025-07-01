@@ -1,5 +1,9 @@
 from django.db import models
 
+
+from Person.models import Person
+
+from datetime import datetime
 # Create your models here.
 
 category_list=(('sport','sport'),
@@ -17,6 +21,29 @@ class Event(models.Model):
     creation_date=models.DateTimeField(auto_now_add=True)
     updated_date=models.DateTimeField(auto_now=True)
     
+    organisateur = models.ForeignKey(Person, on_delete=models.SET_NULL , null=True)
+    
+    
+    participant= models.ManyToManyField(Person, through="Participants" , related_name="participant") 
     def __str__(self):
         return self.title
     
+    
+    
+    class Meta:
+        
+        constraints=[models.CheckConstraint(check=models.Q(evt_date__gt = datetime.now()) , name="Please check the event date")]
+    
+class Participants(models.Model):
+    
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    person = models.ForeignKey(Person,on_delete=models.CASCADE)
+    
+    participation_date= models.DateField(auto_now_add=True)
+    
+    
+    class Meta:
+         unique_together=["event","person"]
+         
+         verbose_name="Participant" 
+   
