@@ -1,0 +1,16 @@
+
+<center>
+<h1>Details</h1>
+
+
+<h1>{{event.id}}</h1>
+<h2>{{event.title}}</h2>
+
+<h2>{{event.category}}</h2>
+
+
+  <a href=" {% url 'participe' event.id %} "><button>Participer </button></a>
+
+    <a href=" {% url 'cancel' event.id %} "><button>Cancel </button></a>
+
+</center>

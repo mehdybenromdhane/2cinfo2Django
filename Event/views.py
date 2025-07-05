@@ -1,9 +1,116 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
+
+from .models import Event,Participants
 # Create your views here.
+from django.views.generic import ListView,DetailView,DeleteView
 
+from django.urls import reverse_lazy
+
+from Person.models import Person
 
 
 def hello(request):
     
-    return render(request , "event/hello.html" , {})
+    
+    test = "Bonjour"
+    
+    return render(request , "event/hello.html" , { "abc":test})
+
+
+
+
+def listEvent(request):
+    
+    events= Event.objects.filter(state=True)
+    
+    
+    return render (request,'event/list.html',{"events":events})
+
+
+
+
+class List(ListView):
+    
+    model= Event
+    template_name="event/list.html"
+    context_object_name="events"
+    
+    
+
+
+def details(request,ide):
+    
+   e1=  Event.objects.get(id=ide)
+   
+   return render(request,"event/details.html",{"event":e1})
+
+
+
+class DetailsEvent(DetailView):
+    model=Event
+    context_object_name='event'
+    
+    template_name="event/details.html"
+    
+    
+    
+
+def delete(request,idEvent):
+    
+    event= Event.objects.get(id=idEvent)
+    
+    if event:
+        event.delete()
+        
+        return redirect('list')
+    
+    
+    
+    
+    
+class DeleteEvent(DeleteView):
+    model=Event
+    
+    success_url=reverse_lazy('list')
+    template_name= "event/delete.html"
+    
+    
+    
+    
+def participer(request , ide):
+    
+    e1= Event.objects.get(id=ide)    
+    
+    p1 = Person.objects.get(cin=12345487)
+    
+    participant = Participants.objects.create(event=e1 ,person=p1)
+    
+    if participant:
+        participant.save()
+        
+        e1.nbr_participants+=1
+        
+        e1.save()
+        
+        return redirect('list')
+        
+    
+    
+    
+def cancel(request , ide):
+    
+    e1= Event.objects.get(id=ide)    
+    
+    p1 = Person.objects.get(cin=12345487)
+    
+    participant = Participants.objects.filter(event=e1 ,person=p1)
+    
+    if participant:
+        participant.delete()
+        
+        e1.nbr_participants-=1
+        
+        e1.save()
+        
+        return redirect('list')

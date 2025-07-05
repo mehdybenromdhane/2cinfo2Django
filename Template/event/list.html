@@ -1,0 +1,43 @@
+<table border="1" align="center">
+    <caption>List of events </caption>
+    <tr>
+
+        <td>Image</td>
+        <td>Title</td>
+        <td>Description</td>
+
+
+        <td>Category</td>
+        <td>Number of participants</td>
+        <td>Event Date</td>
+        <td>Organisateur</td> 
+
+        <td>actions</td>
+    </tr>
+
+
+    {% for e in events %}
+    
+    <tr>
+        <td> <img src="{{e.image.url}}" alt="">   </td>
+        <td>{{e.title}}</td>
+        <td>{{e.description}}</td>
+        <td>{{e.category}}</td>
+        <td>{{e.nbr_participants}}</td>
+        <td>{{e.evt_date}}</td>
+        <td>{{e.organisateur}}</td>
+
+        <td><a href="{% url 'detailsEvent' e.id %}">details with function</a></td>
+        
+    <td><a href="{% url 'detailsClass' e.id %}">details with class</a></td>
+    <td><a href="{% url 'deleteEvent' e.id %}"> Delete with function</a></td>
+    <td><a href="{% url 'deleteWithClass' e.id %}"> Delete with class</a></td>
+
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+
