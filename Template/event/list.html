@@ -1,15 +1,11 @@
 
+{% extends 'base.html' %}
 
 
-{% if user.is_authenticated %}
-<h1>Welcome {{user}}</h1>
 
-<a href="">Logout</a>
 
-{% else %}
-<a href="">Connecter</a>
+{% block body %}
 
-{% endif %}
 <table border="1" align="center">
     <caption>List of events </caption>
     <tr>
@@ -31,6 +27,7 @@
     {% for e in events %}
     
     <tr>
+
         <td> <img src="{{e.image.url}}"  width="100">   </td>
         <td>{{e.title}}</td>
         <td>{{e.description}}</td>
@@ -38,6 +35,7 @@
         <td>{{e.nbr_participants}}</td>
         <td>{{e.evt_date}}</td>
         <td>{{e.organisateur}}</td>
+        <td><a href="{% url 'updateEvent' e.id %}">Update</a></td>
 
         <td><a href="{% url 'detailsEvent' e.id %}">details with function</a></td>
         
@@ -53,3 +51,5 @@
 </table>
 
 
+
+{% endblock %}

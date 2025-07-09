@@ -1,0 +1,28 @@
+
+
+
+{% block nav %}
+<nav>
+    <a href="{% url 'addEvent' %}">Add Event</a>
+    <a href="{% url 'list' %}">List Events</a>
+</nav>
+
+
+{% if user.is_authenticated %}
+<h1>Welcome {{user}}</h1>
+
+<a href="">Logout</a>
+
+{% else %}
+<a href="">Connecter</a>
+
+{% endif %}
+{% endblock %}
+
+
+{% block body %}
+
+
+<h1>Body</h1>
+
+{% endblock %}

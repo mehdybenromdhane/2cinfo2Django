@@ -3,18 +3,18 @@ from django.shortcuts import render,redirect
 
 from .models import Event,Participants
 # Create your views here.
-from django.views.generic import ListView,DetailView,DeleteView
+from django.views.generic import *
 
 from django.urls import reverse_lazy
 
 from Person.models import Person
 
+from .forms import EventForm
 
 def hello(request):
     
-    
     test = "Bonjour"
-    
+
     return render(request , "event/hello.html" , { "abc":test})
 
 
@@ -23,7 +23,6 @@ def hello(request):
 def listEvent(request):
     
     events= Event.objects.filter(state=True)
-    
     
     return render (request,'event/list.html',{"events":events})
 
@@ -124,3 +123,22 @@ def cancel(request , ide):
         e1.save()
         
         return redirect('list')
+    
+    
+    
+    
+
+
+class AddEvent(CreateView):
+    model=Event
+    form_class= EventForm
+    template_name="event/add.html" 
+    success_url=reverse_lazy('list')
+
+
+
+class UpdateEvent(UpdateView):
+     model=Event
+     form_class= EventForm
+     template_name="event/update.html" 
+     success_url=reverse_lazy('list')

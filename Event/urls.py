@@ -13,6 +13,11 @@ urlpatterns = [
     
     path('deleteClass/<int:pk>', DeleteEvent.as_view(), name="deleteWithClass"),
     path('participer/<int:ide>', participer, name="participe"),
-    path('cancel/<int:ide>', cancel, name="cancel")
+    path('cancel/<int:ide>', cancel, name="cancel"),
+
+    path('add/', AddEvent.as_view(), name="addEvent"),
+    
+    path('update/<int:pk>', UpdateEvent.as_view(), name="updateEvent")
+
 
 ]
