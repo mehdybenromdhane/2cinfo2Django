@@ -41,9 +41,20 @@ class List(ListView):
 
 def details(request,ide):
     
+    
+   btn = False 
    e1=  Event.objects.get(id=ide)
    
-   return render(request,"event/details.html",{"event":e1})
+   
+   p1 = Person.objects.get(cin=12345487)
+   participation = Participants.objects.filter(event=e1, person=p1)
+   
+   if participation:
+       btn = True
+       
+       
+       
+   return render(request,"event/details.html",{"event":e1 , "btn":btn})
 
 
 
@@ -95,7 +106,6 @@ def participer(request , ide):
         
         return redirect('list')
         
-    
     
     
 def cancel(request , ide):

@@ -4,7 +4,7 @@ from django.db import models
 from Person.models import Person
 
 from datetime import datetime
-# Create your models here.
+
 
 category_list=(('sport','sport'),
                ('musique','musique'),

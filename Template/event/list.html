@@ -1,3 +1,15 @@
+
+
+
+{% if user.is_authenticated %}
+<h1>Welcome {{user}}</h1>
+
+<a href="">Logout</a>
+
+{% else %}
+<a href="">Connecter</a>
+
+{% endif %}
 <table border="1" align="center">
     <caption>List of events </caption>
     <tr>
@@ -19,7 +31,7 @@
     {% for e in events %}
     
     <tr>
-        <td> <img src="{{e.image.url}}" alt="">   </td>
+        <td> <img src="{{e.image.url}}"  width="100">   </td>
         <td>{{e.title}}</td>
         <td>{{e.description}}</td>
         <td>{{e.category}}</td>

@@ -9,8 +9,15 @@
 <h2>{{event.category}}</h2>
 
 
-  <a href=" {% url 'participe' event.id %} "><button>Participer </button></a>
+
+{% if btn %}
 
     <a href=" {% url 'cancel' event.id %} "><button>Cancel </button></a>
+{% else %}
+  <a href=" {% url 'participe' event.id %} "><button>Participer </button></a>
 
+{% endif %}
+
+
+<a href="{% url 'list' %}"> back</a>
 </center>
