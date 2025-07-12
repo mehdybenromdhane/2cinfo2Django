@@ -27,5 +27,7 @@ class Person(AbstractUser):
     
     USERNAME_FIELD="username"
     
+    
+
     class Meta:
         verbose_name="Person"

@@ -41,11 +41,12 @@ class List(ListView):
 def details(request,ide):
     
     
+    
    btn = False 
    e1=  Event.objects.get(id=ide)
    
    
-   p1 = Person.objects.get(cin=12345487)
+   p1 = request.user
    participation = Participants.objects.filter(event=e1, person=p1)
    
    if participation:
@@ -92,7 +93,7 @@ def participer(request , ide):
     
     e1= Event.objects.get(id=ide)    
     
-    p1 = Person.objects.get(cin=12345487)
+    p1 = request.user
     
     participant = Participants.objects.create(event=e1 ,person=p1)
     
@@ -111,7 +112,7 @@ def cancel(request , ide):
     
     e1= Event.objects.get(id=ide)    
     
-    p1 = Person.objects.get(cin=12345487)
+    p1 =request.user
     
     participant = Participants.objects.filter(event=e1 ,person=p1)
     
